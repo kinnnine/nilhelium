@@ -11,4 +11,4 @@ You still need your own assets.epk by [compiling Eaglercraft](https://gitflic.ru
 
 ## Copyright and License
 
-This software is created by Supphakit Duanghoy (kinnnine), copyright (c) 2026 under [GPLv3](LICENSE) license.
+This software is created by Supphakit Duanghoy (kinnnine), copyright (c) 2026 under [GPLv2](LICENSE) license.
