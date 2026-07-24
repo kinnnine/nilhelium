@@ -1,6 +1,6 @@
 # NilHelium
 
-Multi-instance launcher for [Eaglercraft] as an installable, fully offline PWA.
+Multi-instance launcher for Eaglercraft as an installable, fully offline PWA.
 
 ## Notice
 
