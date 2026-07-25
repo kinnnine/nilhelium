@@ -37,8 +37,8 @@ export const VersionEditView = () => {
                                 <div class="field middle-align">
                                     <nav>
                                         <div class="max">
-                                            <h6>Assets EPK/EPW Data</h6>
-                                            <div>Encoded base64 string of the assets.epk/.epw file</div>
+                                            <h6>Assets EPW Data</h6>
+                                            <div>Encoded base64 string of the assets.epw file</div>
                                         </div>
                                         <label class="field border">
                                             <input type="text"></input>
@@ -49,8 +49,8 @@ export const VersionEditView = () => {
                                 <div class="field middle-align">
                                     <nav>
                                         <div class="max">
-                                            <h6>Assets EPK/EPW Identification</h6>
-                                            <div>Identify trusted and valid against NilHelium's assets.epk/.epw sha256 checksum list</div>
+                                            <h6>Assets EPW Identification</h6>
+                                            <div>Identify trusted and valid against NilHelium's assets.epw sha256 checksum list</div>
                                         </div>
                                         <label class="switch">
                                             <input type="checkbox"></input>
@@ -61,7 +61,7 @@ export const VersionEditView = () => {
                                 <div class="field middle-align">
                                     <nav>
                                         <div class="max">
-                                            <h6>Assets EPK/EPW Identification Status</h6>
+                                            <h6>Assets EPW Identification Status</h6>
                                             <div>Disabled</div>
                                         </div>
                                     </nav>
