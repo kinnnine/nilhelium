@@ -12,7 +12,6 @@ export const MenuPages = () => {
                         <menu class="no-wrap">
                             <li onclick={() => m.route.set("/instances")}>Instances</li>
                             <li onclick={() => m.route.set("/versions")}>Versions</li>
-                            <li onclick={() => m.route.set("/profiles")}>Profiles</li>
                         </menu>
                     </div>
                 </>
