@@ -38,7 +38,7 @@ export const VersionEditView = () => {
                                     <nav>
                                         <div class="max">
                                             <h6>Assets EPK/EPW Data</h6>
-                                            <div>Encoded base64 string of the assets.epk file</div>
+                                            <div>Encoded base64 string of the assets.epk/.epw file</div>
                                         </div>
                                         <label class="field border">
                                             <input type="text"></input>
@@ -50,7 +50,7 @@ export const VersionEditView = () => {
                                     <nav>
                                         <div class="max">
                                             <h6>Assets EPK/EPW Identification</h6>
-                                            <div>Identify trusted and valid assets.epk/assets.epw against NilHelium's assets.epk sha256 checksum list</div>
+                                            <div>Identify trusted and valid against NilHelium's assets.epk/.epw sha256 checksum list</div>
                                         </div>
                                         <label class="switch">
                                             <input type="checkbox"></input>
