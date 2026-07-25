@@ -14,6 +14,7 @@ export const ProfilesView = () => {
                             <h6 class="max">Profiles</h6>
                             <button class="circle transparent">
                                 <i>add_box</i>
+                                <span class="tooltip bottom">Create New Profile</span>
                             </button>
                             <MenuMisc />
                         </nav>
