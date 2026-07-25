@@ -12,7 +12,7 @@ export const VersionsView = () => {
                         <nav>
                             <MenuPages />
                             <h6 class="max">Versions</h6>
-                            <button class="circle transparent">
+                            <button onclick={() => m.route.set("/version/edit")} class="circle transparent">
                                 <i>add_box</i>
                                 <span class="tooltip bottom">Create New Version</span>
                             </button>

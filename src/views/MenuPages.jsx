@@ -10,9 +10,9 @@ export const MenuPages = () => {
                             <i>menu</i>
                         </button>
                         <menu class="no-wrap">
-                            <li><a href="#!/instances">Instances</a></li>
-                            <li><a href="#!/versions">Versions</a></li>
-                            <li><a href="#!/profiles">Profiles</a></li>
+                            <li onclick={() => m.route.set("/instances")}>Instances</li>
+                            <li onclick={() => m.route.set("/versions")}>Versions</li>
+                            <li onclick={() => m.route.set("/profiles")}>Profiles</li>
                         </menu>
                     </div>
                 </>

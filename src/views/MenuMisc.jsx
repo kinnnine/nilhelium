@@ -10,8 +10,8 @@ export const MenuMisc = () => {
                             <i>more_vert</i>
                         </button>
                         <menu class="left no-wrap">
-                            <li><a href="#!/settings">Settings</a></li>
-                            <li><a href="#!/about">About</a></li>
+                            <li onclick={() => m.route.set("/settings")}>Settings</li>
+                            <li onclick={() => m.route.set("/about")}>About</li>
                         </menu>
                     </div>
                 </>

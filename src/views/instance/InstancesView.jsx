@@ -12,7 +12,7 @@ export const InstancesView = () => {
                         <nav>
                             <MenuPages />
                             <h6 class="max">Instances</h6>
-                            <button class="circle transparent">
+                            <button onclick={() => m.route.set("/instance/edit")} class="circle transparent">
                                 <i>add_box</i>
                                 <span class="tooltip bottom">Create New Instance</span>
                             </button>
