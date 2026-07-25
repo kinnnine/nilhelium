@@ -7,7 +7,9 @@ Multi-instance launcher for Eaglercraft as an installable, fully offline [PWA](h
 This project's source code doesn't host or contains any portion of Minecraft and Eaglercraft.<br>
 Its only job is allows you to have multiple profiles of Eaglercraft with clean UI and offline use.
 
-You still need your own assets.epk by [compiling Eaglercraft](https://github.com/Eaglercraft-Archive/Eaglercraftx-1.8.8-src) or any other variants,<br>and importantly LEGALLY own Minecraft yourself.
+You still need your own assets.epw by [compiling Eaglercraft](https://github.com/Eaglercraft-Archive/Eaglercraftx-1.8.8-src) or any other variants,<br>and importantly LEGALLY own Minecraft yourself.
+
+Only WASM-GC version of Eaglercraft or related is supported, for now.
 
 ## Technologies used
 
