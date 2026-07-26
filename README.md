@@ -16,6 +16,7 @@ Only WASM-GC version of Eaglercraft or related is supported, for now.
 * [Mithril.js](https://mithril.js.org/): JavaScript framework
 * [Beer CSS](https://www.beercss.com/): Material Design 3 CSS Framework
 * [Workbox](https://web.dev/learn/pwa/workbox): Handling asset caching for offline use
+* [Pako](https://github.com/nodeca/pako): Zlib compression & decompression
 * [Vite](https://vite.dev/): Web Bundler
 
 ## Credits
