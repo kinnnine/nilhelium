@@ -1,10 +1,14 @@
 import m from "mithril";
 import { MenuPages } from "../MenuPages";
 import { MenuMisc } from "../MenuMisc";
+import { VersionManager } from "../../libs/VersionManager";
 
 export const VersionsView = () => {
     return {
-        view: () => {
+        oninit: (vnode) => {
+            vnode.state.versions = VersionManager.getVersions();
+        },
+        view: (vnode) => {
             return (
                 <>
                     {/* Header */}
@@ -23,23 +27,27 @@ export const VersionsView = () => {
                     {/* Versions */}
                     <main class="compact">
                         <section>
-                            <article class="secondary-container">
-                                <div class="row">
-                                    <div class="max">
-                                        <h5>1.8.8_u53_-wasm-gc</h5>
-                                    </div>
-                                </div>
-                                <nav>
-                                    <button class="circle transparent">
-                                        <i>edit_square</i>
-                                        <span class="tooltip bottom">Edit</span>
-                                    </button>
-                                    <button class="circle transparent">
-                                        <i>delete</i>
-                                        <span class="tooltip bottom">Delete</span>
-                                    </button>
-                                </nav>
-                            </article>
+                            {
+                                Object.entries(vnode.state.versions).map(([id, item]) => (
+                                    <article class="secondary-container">
+                                        <div class="row">
+                                            <div class="max">
+                                                <h5>{item.name}</h5>
+                                            </div>
+                                        </div>
+                                        <nav>
+                                            <button class="circle transparent">
+                                                <i>edit_square</i>
+                                                <span class="tooltip bottom">Edit</span>
+                                            </button>
+                                            <button class="circle transparent">
+                                                <i>delete</i>
+                                                <span class="tooltip bottom">Delete</span>
+                                            </button>
+                                        </nav>
+                                    </article>
+                                ))
+                            }
                         </section>
                     </main>
                     {/* Versions */}

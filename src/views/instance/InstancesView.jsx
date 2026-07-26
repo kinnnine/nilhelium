@@ -1,10 +1,14 @@
 import m from "mithril";
 import { MenuPages } from "../MenuPages";
 import { MenuMisc } from "../MenuMisc";
+import { InstanceManager } from "../../libs/InstanceManager";
 
 export const InstancesView = () => {
     return {
-        view: () => {
+        oninit: (vnode) => {
+            vnode.state.instances = InstanceManager.getInstances();
+        },
+        view: (vnode) => {
             return (
                 <>
                     {/* Header */}
@@ -23,36 +27,40 @@ export const InstancesView = () => {
                     {/* Instances */}
                     <main class="compact">
                         <section>
-                            <article class="secondary-container">
-                                <div class="row">
-                                    <div class="max">
-                                        <h5>Example</h5>
-                                        <div>Version: 1.8.8_u53_-wasm-gc | Playtime: 0d 0h 0m </div>
-                                    </div>
-                                </div>
-                                <nav>
-                                    <button class="circle transparent">
-                                        <i>play_circle</i>
-                                        <span class="tooltip bottom">Launch</span>
-                                    </button>
-                                    <button class="circle transparent">
-                                        <i>stop_circle</i>
-                                        <span class="tooltip bottom">Close</span>
-                                    </button>
-                                    <button class="circle transparent">
-                                        <i>terminal</i>
-                                        <span class="tooltip bottom">View Log</span>
-                                    </button>
-                                    <button class="circle transparent">
-                                        <i>edit_square</i>
-                                        <span class="tooltip bottom">Edit</span>
-                                    </button>
-                                    <button class="circle transparent">
-                                        <i>delete</i>
-                                        <span class="tooltip bottom">Delete</span>
-                                    </button>
-                                </nav>
-                            </article>
+                            {
+                                Object.entries(vnode.state.instances || {}).map(([id, item]) => ( 
+                                    <article class="secondary-container">
+                                        <div class="row">
+                                            <div class="max">
+                                                <h5>{item.name}</h5>
+                                                <div>Version: {item.version} | Playtime: {item.playtime} </div>
+                                            </div>
+                                        </div>
+                                        <nav>
+                                            <button class="circle transparent">
+                                                <i>play_circle</i>
+                                                <span class="tooltip bottom">Launch</span>
+                                            </button>
+                                            <button class="circle transparent">
+                                                <i>stop_circle</i>
+                                                <span class="tooltip bottom">Close</span>
+                                            </button>
+                                            <button class="circle transparent">
+                                                <i>terminal</i>
+                                                <span class="tooltip bottom">View Log</span>
+                                            </button>
+                                            <button class="circle transparent">
+                                                <i>edit_square</i>
+                                                <span class="tooltip bottom">Edit</span>
+                                            </button>
+                                            <button class="circle transparent">
+                                                <i>delete</i>
+                                                <span class="tooltip bottom">Delete</span>
+                                            </button>
+                                        </nav>
+                                    </article>
+                                ))
+                            }
                         </section>
                     </main>
                     {/* Instances */}
