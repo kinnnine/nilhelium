@@ -8,7 +8,7 @@ import { GameLogView } from "./views/game/GameLogView";
 import { VersionsView } from "./views/version/VersionsView";
 import { InstanceEditView } from "./views/instance/InstanceEditView";
 import { VersionEditView } from "./views/version/VersionEditView";
-import { ProfilesView } from "./views/profile/ProfilesView";
+import { AccountsView } from "./views/account/AccountsView";
 import { SettingsView } from "./views/misc/SettingsView";
 import { AboutView } from "./views/misc/AboutView";
 
@@ -21,7 +21,7 @@ m.route(root, "/instances", {
     "/versions": VersionsView,
     "/version/edit": VersionEditView,
 
-    "/profiles": ProfilesView,
+    "/accounts": AccountsView,
 
     "/game": GameView,
     "/game/log": GameLogView,

@@ -2,7 +2,7 @@ import m from "mithril";
 import { MenuPages } from "../MenuPages";
 import { MenuMisc } from "../MenuMisc";
 
-export const ProfilesView = () => {
+export const AccountsView = () => {
     return {
         view: () => {
             return (
@@ -11,10 +11,10 @@ export const ProfilesView = () => {
                     <header class="primary-container">
                         <nav>
                             <MenuPages />
-                            <h6 class="max">Profiles</h6>
+                            <h6 class="max">Accounts</h6>
                             <button class="circle transparent">
                                 <i>add_box</i>
-                                <span class="tooltip bottom">Create New Profile</span>
+                                <span class="tooltip bottom">Add an account</span>
                             </button>
                             <MenuMisc />
                         </nav>
