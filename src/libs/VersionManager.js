@@ -1,4 +1,4 @@
-import { ConfigHelper } from "./ConfigHelper"
+import { ConfigHelper } from "./helpers/ConfigHelper"
 
 const namespace = "__nilhelium_versions";
 const namespace_data = "__nilhelium_versions_data";
