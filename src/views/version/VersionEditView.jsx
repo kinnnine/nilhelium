@@ -5,10 +5,10 @@ export const VersionEditView = () => {
     return {
         oninit: (vnode) => {
             vnode.state.versionName = "";
-            vnode.state.versionEPWData = "";
+            vnode.state.versionEPWFile = null;
             vnode.state.versionEPWIdentify = false;
             vnode.state.save = () => {
-                VersionManager.addVersion(vnode.state.versionName, vnode.state.versionEPWIdentify, vnode.state.versionEPWData);
+                VersionManager.addVersion(vnode.state.versionName, vnode.state.versionEPWIdentify, vnode.state.versionEPWFile);
             };
         },
         view: (vnode) => {
@@ -47,21 +47,19 @@ export const VersionEditView = () => {
                                     <nav>
                                         <div class="max">
                                             <h6>Assets EPW Data</h6>
-                                            <div>Encoded base64 string of the assets.epw file</div>
+                                            <div>Eaglercraft client's assets.epw file</div>
                                         </div>
                                         <label class="field border">
                                             {vnode.state.versionEPWData
                                                 ? <button class="tertiary" onclick={() => {
-                                                    const btn = document.getElementById("epwTxtFile");
-                                                    btn.click();
+                                                    document.getElementById("epwFile").click();
                                                 }}>
                                                     <i>file_open</i>
                                                     <span>Change</span>
                                                 </button>
                                                 :
                                                 <button onclick={() => {
-                                                    const btn = document.getElementById("epwTxtFile");
-                                                    btn.click();
+                                                    document.getElementById("epwFile").click();
                                                 }}>
                                                     <i>file_open</i>
                                                     <span>Select</span>
@@ -86,16 +84,16 @@ export const VersionEditView = () => {
                                     <nav>
                                         <div class="max">
                                             <h6>Assets EPW Identification Status</h6>
-                                            <div>Disabled</div>
+                                            <div>Disabled (Not yet implemented)</div>
                                         </div>
                                     </nav>
                                 </div>
                             </article>
                         </section>
                     </main>
-                    <input type="file" id="epwTxtFile" accept=".txt" style="display:none;" onchange={(e) => {
-                        vnode.state.versionEPWData = e.target.files[0];
-                        console.log(vnode.state.versionEPWData);
+                    <input type="file" id="epwFile" accept=".epw" style="display:none;" onchange={(e) => {
+                        vnode.state.versionEPWFile = e.target.files[0];
+                        console.log(vnode.state.versionEPWFile);
                     }}></input>
                     {/* Edit Form */}
                 </>
