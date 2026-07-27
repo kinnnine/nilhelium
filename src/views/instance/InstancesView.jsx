@@ -7,6 +7,9 @@ export const InstancesView = () => {
     return {
         oninit: (vnode) => {
             vnode.state.instances = InstanceManager.getInstances();
+            vnode.state.createWindow = (path, width = 854, height = 480) => {
+                window.open(m.route.prefix + path, "_blank", "popup=true,width=" + width + ",height=" + height);
+            };
         },
         view: (vnode) => {
             return (
@@ -37,19 +40,19 @@ export const InstancesView = () => {
                                             </div>
                                         </div>
                                         <nav>
-                                            <button class="circle transparent">
+                                            <button onclick={() => vnode.state.createWindow("/game")} class="circle transparent">
                                                 <i>play_circle</i>
                                                 <span class="tooltip bottom">Launch</span>
                                             </button>
                                             <button class="circle transparent">
                                                 <i>stop_circle</i>
-                                                <span class="tooltip bottom">Close</span>
+                                                <span class="tooltip bottom">Stop</span>
                                             </button>
-                                            <button class="circle transparent">
+                                            <button onclick={() => vnode.state.createWindow("/game/log")} class="circle transparent">
                                                 <i>terminal</i>
                                                 <span class="tooltip bottom">View Log</span>
                                             </button>
-                                            <button class="circle transparent">
+                                            <button onclick={() => m.route.set("/instance/edit")} class="circle transparent">
                                                 <i>edit_square</i>
                                                 <span class="tooltip bottom">Edit</span>
                                             </button>
