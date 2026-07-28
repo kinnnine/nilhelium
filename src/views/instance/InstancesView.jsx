@@ -7,6 +7,8 @@ export const InstancesView = () => {
     return {
         oninit: (vnode) => {
             vnode.state.instances = InstanceManager.getInstances();
+            vnode.state.modal_header = "";
+            vnode.state.modal_content = "";
             vnode.state.createWindow = (path, width = 854, height = 480) => {
                 window.open(m.route.prefix + path, "_blank", "popup=true,width=" + width + ",height=" + height);
             };
@@ -27,11 +29,28 @@ export const InstancesView = () => {
                         </nav>
                     </header>
                     {/* Header */}
+                    {/* Modals */}
+                    <dialog id="confirm-modal" class="bottom">
+                        <h5>Top</h5>
+                        <div>Some text here</div>
+                        <nav class="right-align">
+                            <button class="border">Cancel</button>
+                            <button>Confirm</button>
+                        </nav>
+                    </dialog>
+                    <dialog id="okay-modal" class="bottom">
+                        <h5></h5>
+                        <div></div>
+                        <nav class="right-align">
+                            <button>Okay</button>
+                        </nav>
+                    </dialog>
+                    {/* Modals */}
                     {/* Instances */}
                     <main class="compact">
                         <section>
                             {
-                                Object.entries(vnode.state.instances || {}).map(([id, item]) => ( 
+                                Object.entries(vnode.state.instances || {}).map(([id, item]) => (
                                     <article class="secondary-container">
                                         <div class="row">
                                             <div class="max">

@@ -1,5 +1,6 @@
 import m from "mithril";
 import { VersionManager } from "../../libs/VersionManager";
+import { FileHelper } from "../../libs/helpers/FileHelper";
 
 export const VersionEditView = () => {
     return {
@@ -75,7 +76,8 @@ export const VersionEditView = () => {
                                             <div>Identify trusted and valid against NilHelium's assets.epw sha256 checksum list</div>
                                         </div>
                                         <label class="switch">
-                                            <input type="checkbox" checked={vnode.state.versionEPWIdentify} onchange={(e) => vnode.state.versionEPWIdentify = e.target.checked}></input>
+                                            <input type="checkbox" checked={vnode.state.versionEPWIdentify}
+                                                onchange={(e) => vnode.state.versionEPWIdentify = e.target.checked}></input>
                                             <span></span>
                                         </label>
                                     </nav>
@@ -93,7 +95,6 @@ export const VersionEditView = () => {
                     </main>
                     <input type="file" id="epwFile" accept=".epw" style="display:none;" onchange={(e) => {
                         vnode.state.versionEPWFile = e.target.files[0];
-                        console.log(vnode.state.versionEPWFile);
                     }}></input>
                     {/* Edit Form */}
                 </>

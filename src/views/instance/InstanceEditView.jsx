@@ -49,7 +49,8 @@ export const InstanceEditView = () => {
                                             <div>Assigned Eaglercraft version for this instance</div>
                                         </div>
                                         <div class="field suffix border">
-                                            <select value={vnode.state.instanceAssignedVersion} onchange={(e) => vnode.state.instanceAssignedVersion = e.target.value}>
+                                            <select value={vnode.state.instanceAssignedVersion}
+                                                onchange={(e) => vnode.state.instanceAssignedVersion = e.target.value}>
                                                 <option value="test">1.8.8_u53_-wasm-gc</option>
                                             </select>
                                             <i>arrow_drop_down</i>
