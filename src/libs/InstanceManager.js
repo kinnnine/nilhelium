@@ -1,26 +1,47 @@
 import { ConfigHelper } from "./helpers/ConfigHelper"
-
-const namespace = "__nilhelium_instances";
+import { STORAGE_NAMESPACE_INSTANCES } from "../constants";
 
 export const InstanceManager = {
-    getInstances: () => {
-        return ConfigHelper.getConfig(namespace);
-    },
-    addInstance: (name, version) => {
-        var instances = InstanceManager.getInstances();
-        var uuid = crypto.randomUUID();
-        instances[uuid] = {
-            name: name,
-            version: version,
-            playtime: ""
+    namespace: STORAGE_NAMESPACE_INSTANCES,
+    getInstances() {
+        try {
+            return ConfigHelper.getConfig(this.namespace);
+        } catch (err) {
+            throw err;
         };
-        ConfigHelper.saveConfig(namespace, instances);
     },
-    removeInstance: (uuid) => {
-        var instances = InstanceManager.getInstances();
-        if (instances[uuid]) {
-            delete instances[uuid];
+    addInstance(name, version) {
+        if (typeof name != 'undefined' && typeof version != 'undefined') {
+            try {
+                // Version list check needed.
+                var instances = this.getInstances();
+                var uuid = crypto.randomUUID();
+                instances[uuid] = {
+                    name: name,
+                    version: version,
+                    playtime: ""
+                };
+                ConfigHelper.saveConfig(this.namespace, instances);
+            } catch (err) {
+                throw err;
+            };
+        } else {
+            throw new Error("Incomplete required parameters: name (string), version (number)");
         };
-        ConfigHelper.saveConfig(namespace, instances);
+    },
+    removeInstance(uuid) {
+        if (typeof uuid != 'undefined') {
+            try {
+                var instances = this.getInstances();
+                if (instances[uuid]) {
+                    delete instances[uuid];
+                };
+                ConfigHelper.saveConfig(this.namespace, instances);
+            } catch (err) {
+                throw err;
+            };
+        } else {
+            throw new Error("Incomplete required parameters: uuid (string)");
+        };
     }
 };
