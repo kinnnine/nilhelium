@@ -69,7 +69,7 @@ export const FileHelper = {
             var store = this.getStore('readwrite');
             var req = store.index('uuid');
             req.get(uuid).onsuccess = (e) => {
-                if (typeof evt.target.result == 'undefined') {
+                if (typeof e.target.result == 'undefined') {
                     console.error("No matching record found");
                     return;
                 };
