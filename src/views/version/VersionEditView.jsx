@@ -24,6 +24,7 @@ export const VersionEditView = () => {
                             <h6 class="max">version_name / New Version</h6>
                             <button onclick={() => vnode.state.save()} class="circle transparent">
                                 <i>save</i>
+                                <span class="tooltip bottom">Save</span>
                             </button>
                         </nav>
                     </header>
