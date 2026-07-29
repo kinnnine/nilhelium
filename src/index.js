@@ -17,20 +17,25 @@ import { FileHelper } from "./libs/helpers/FileHelper";
 
 var root = document.body
 
-FileHelper.initDB(DB_NAME, DB_STORE_NAME);
+FileHelper.initDB(DB_NAME, DB_STORE_NAME)
+    .then((db) => {
+        m.route(root, "/instances", {
+            "/instances": InstancesView,
+            "/instance/edit": InstanceEditView,
 
-m.route(root, "/instances", {
-    "/instances": InstancesView,
-    "/instance/edit": InstanceEditView,
+            "/versions": VersionsView,
+            "/version/edit": VersionEditView,
 
-    "/versions": VersionsView,
-    "/version/edit": VersionEditView,
+            "/accounts": AccountsView,
 
-    "/accounts": AccountsView,
+            "/game/:uuid": GameView,
+            "/gamelog/:uuid": GameLogView,
 
-    "/game/:uuid": GameView,
-    "/gamelog/:uuid": GameLogView,
+            "/settings": SettingsView,
+            "/about": AboutView
+        });
+    })
+    .catch((err) => {
+        console.error("indexedDB failure", err);
+    });
 
-    "/settings": SettingsView,
-    "/about": AboutView
-});

@@ -5,22 +5,26 @@ export const FileHelper = {
         if (typeof db_name != 'undefined' &&
             typeof db_store_name != 'undefined'
         ) {
-            const req = indexedDB.open(db_name, 1);
-            req.onerror = (e) => {
-                console.error("Failed to init indexedDB.");
-            };
-            req.onsuccess = (e) => {
-                this.db = e.target.result;
-                this.store_name = db_store_name;
-            };
-            req.onupgradeneeded = (e) => {
-                const store = e.currentTarget.result.createObjectStore(db_store_name, { keyPath: 'uuid' });
-            };
+            return new Promise((resolve, reject) => {
+                const req = indexedDB.open(db_name, 1);
+                req.onerror = (e) => {
+                    reject(e.target.error);
+                };
+                req.onsuccess = (e) => {
+                    this.db = e.target.result;
+                    this.store_name = db_store_name;
+                    resolve(this.db);
+                    console.log("indexedDB ready.");
+                };
+                req.onupgradeneeded = (e) => {
+                    e.currentTarget.result.createObjectStore(db_store_name, { keyPath: 'uuid' });
+                };
+            });
         } else {
             throw new Error("Incomplete required parameters: db_name (string), db_store_name (string)");
         };
     },
-    getStore(mode = 'read') {
+    getStore(mode = 'readonly') {
         if (this.db == null && this.store_name == null)
             throw new Error("Incomplete indexedDB initialization");
         if (typeof mode != 'undefined') {
@@ -34,8 +38,26 @@ export const FileHelper = {
             throw new Error("Incomplete required parameters: mode (string)");
         };
     },
-    getFile(slot_name, uuid) {
-        // TODO
+    async getFile(slot_name, uuid) {
+        if (this.db == null && this.store_name == null)
+            throw new Error("Incomplete indexedDB initialization.");
+        if (typeof slot_name != 'undefined' &&
+            typeof uuid != 'undefined'
+        ) {
+            return new Promise((resolve, reject) => {
+                const store = this.getStore();
+                const getReq = store.get(uuid);
+                getReq.onsuccess = (e) => {
+                    const obj = e.target.result;
+                    resolve(obj.files[slot_name]);
+                };
+                getReq.onerror = (e) => {
+                    reject("getFile fetch error", e.target.error);
+                };
+            });
+        } else {
+            throw new Error("Incomplete required parameters: slot_name (string), uuid (string)");
+        };
     },
     addFile(slot_name, blob, uuid) {
         if (this.db == null && this.store_name == null)
@@ -55,11 +77,11 @@ export const FileHelper = {
                         console.log("addFile insertion successful");
                     };
                     putReq.onerror = (e) => {
-                        console.error("addFile insertion error", e.error);
+                        console.error("addFile insertion error", e.target.error);
                     };
                 };
                 getReq.onerror = (e) => {
-                    console.error("addFile fetch error", e.error);
+                    console.error("addFile fetch error", e.target.error);
                 };
             } catch (err) {
                 throw err;
@@ -89,11 +111,11 @@ export const FileHelper = {
                         console.log("removeFile removal successful");
                     };
                     putReq.onerror = (e) => {
-                        console.error("removeFile removal error", e.error);
+                        console.error("removeFile removal error", e.target.error);
                     }
                 };
                 getReq.onerror = (e) => {
-                    console.error("removeFile fetch error", e.error);
+                    console.error("removeFile fetch error", e.target.error);
                 };
             } catch (err) {
                 throw err;
