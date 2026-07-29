@@ -10,6 +10,22 @@ export const InstanceManager = {
             throw err;
         };
     },
+    getInstance(uuid) {
+        if (typeof uuid != 'undefined') {
+            try {
+                var instances = ConfigHelper.getConfig(this.namespace);
+                if (instances[uuid]) {
+                    return instances[uuid];
+                } else {
+                    return null;
+                };
+            } catch (err) {
+                throw err;
+            };
+        } else {
+            throw new Error("Incomplete required parameters: uuid (string)");
+        };
+    },
     addInstance(name, version) {
         if (typeof name != 'undefined' && typeof version != 'undefined') {
             try {
