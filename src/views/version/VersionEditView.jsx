@@ -51,7 +51,7 @@ export const VersionEditView = () => {
                                             <div>Eaglercraft client's assets.epw file</div>
                                         </div>
                                         <label class="field border">
-                                            {vnode.state.versionEPWData
+                                            {vnode.state.versionEPWFile
                                                 ? <button class="tertiary" onclick={() => {
                                                     document.getElementById("epwFile").click();
                                                 }}>
@@ -95,6 +95,7 @@ export const VersionEditView = () => {
                     </main>
                     <input type="file" id="epwFile" accept=".epw" style="display:none;" onchange={(e) => {
                         vnode.state.versionEPWFile = e.target.files[0];
+                        console.log(vnode.state.versionEPWFile);
                     }}></input>
                     {/* Edit Form */}
                 </>
