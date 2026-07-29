@@ -40,7 +40,7 @@ export const FileHelper = {
     },
     addFile(slot_name, blob, uuid) {
         if (typeof slot_name != 'undefined' &&
-            typeof blob != 'undefined' &&
+            typeof blob === 'object' &&
             typeof uuid != 'undefined'
         ) {
             var obj = { uuid: uuid, slot_name: slot_name, blob: blob };
@@ -63,6 +63,23 @@ export const FileHelper = {
         };
     },
     removeFile(slot_name, uuid) {
-        // TODO
+        if (typeof slot_name != 'undefined' &&
+            typeof uuid != 'undefined'
+        ) {
+            var store = this.getStore('readwrite');
+            var req = store.index('uuid');
+            req.get(uuid).onsuccess = (e) => {
+                if (typeof evt.target.result == 'undefined') {
+                    console.error("No matching record found");
+                    return;
+                };
+                console.log("found.");
+            };
+            req.onerror = (e) => {
+                console.error("removeFile error", e.error);
+            };
+        } else {
+            throw new Error("Incomplete required parameters: slot_name (string), uuid (string)");
+        };
     }
 }
