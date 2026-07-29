@@ -28,8 +28,8 @@ m.route(root, "/instances", {
 
     "/accounts": AccountsView,
 
-    "/game": GameView,
-    "/game/log": GameLogView,
+    "/game/:uuid": GameView,
+    "/game/log/:uuid": GameLogView,
 
     "/settings": SettingsView,
     "/about": AboutView
