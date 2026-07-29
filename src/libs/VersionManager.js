@@ -1,18 +1,15 @@
 import { ConfigHelper } from "./helpers/ConfigHelper"
-import { STORAGE_NAMESPACE_VERSIONS, STORAGE_NAMESPACE_VERSIONS_DATA } from "../constants";
+import { STORAGE_NAMESPACE_VERSIONS } from "../constants";
+import { FileHelper } from "./helpers/FileHelper";
 
 export const VersionManager = {
     namespace: STORAGE_NAMESPACE_VERSIONS,
-    namespace_data: STORAGE_NAMESPACE_VERSIONS_DATA,
     getVersions() {
         try {
             return ConfigHelper.getConfig(this.namespace);
         } catch (err) {
             throw err;
         };
-    },
-    getVersionsData() {
-        // TODO (IndexedDB)
     },
     getVersion(uuid) {
         if (typeof uuid != 'undefined') {
@@ -33,10 +30,10 @@ export const VersionManager = {
     getVersionData(uuid) {
         // TODO (IndexedDB)
     },
-    addVersion(name, epw_identify, epw_data) {
+    addVersion(name, epw_identify, epw_file) {
         if (typeof name != 'undefined' &&
             typeof epw_identify != 'undefined' &&
-            typeof epw_data != 'undefined'
+            typeof epw_file === 'object'
         ) {
             try {
                 var uuid = crypto.randomUUID();
@@ -45,12 +42,13 @@ export const VersionManager = {
                     name: name,
                     epw_identify: epw_identify
                 };
+                FileHelper.addFile("assets.epw", epw_file, uuid);
                 ConfigHelper.saveConfig(this.namespace, versions);
             } catch (err) {
                 throw err;
             };
         } else {
-            throw new Error("Incomplete required parameters: name (string), epw_indentify (boolean), epw_data (object)");
+            throw new Error("Incomplete required parameters: name (string), epw_indentify (boolean), epw_file (object)");
         };
     },
     removeVersion(uuid) {
