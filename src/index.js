@@ -29,7 +29,7 @@ m.route(root, "/instances", {
     "/accounts": AccountsView,
 
     "/game/:uuid": GameView,
-    "/game/log/:uuid": GameLogView,
+    "/gamelog/:uuid": GameLogView,
 
     "/settings": SettingsView,
     "/about": AboutView

@@ -2,26 +2,20 @@ import m from "mithril";
 import { MenuPages } from "../MenuPages";
 import { MenuMisc } from "../MenuMisc";
 import { InstanceManager } from "../../libs/InstanceManager";
-import { ConfirmDialog, OkayDialog } from "../Dialogs";
+import { VersionManager } from "../../libs/VersionManager";
 
 export const InstancesView = () => {
     return {
         oninit: (vnode) => {
-            vnode.state.instances = InstanceManager.getInstances();
-            vnode.state.modal_header = "";
-            vnode.state.modal_content = "";
             vnode.state.instanceDeletion = (uuid) => {
-                const instance = InstanceManager.getInstance(uuid);
-                ConfirmDialog().toggle("instance-deletion-dialog",
-                    'Delete "' + instance.name + '"?',
-                    '"' + instance.name + '" will be deleted forever, including settings, servers and worlds for this instance!',
-                    () => {
-                        console.log("Action fired from instance: " + instance);
-                    }
-                );
+                // const instance = InstanceManager.getInstance(uuid);
+                InstanceManager.removeInstance(uuid);
             };
-            vnode.state.createWindow = (path, width = 854, height = 480) => {
-                window.open(m.route.prefix + path, "_blank", "popup=true,width=" + width + ",height=" + height);
+            vnode.state.createGameWindow = (uuid, width = 854, height = 480) => {
+                window.open(m.route.prefix + "/game/" + uuid, "_blank", "popup=true,width=" + width + ",height=" + height);
+            };
+            vnode.state.createLogWindow = (uuid) => {
+                window.open(m.route.prefix + "/gamelog/" + uuid, "_blank", "popup=true,width=854,height=480");
             };
         },
         view: (vnode) => {
@@ -40,20 +34,20 @@ export const InstancesView = () => {
                         </nav>
                     </header>
                     {/* Header */}
-                    {/* Instances */}
+                    {/* List */}
                     <main class="compact">
                         <section>
                             {
-                                Object.entries(vnode.state.instances || {}).map(([id, item]) => (
+                                Object.entries(InstanceManager.getInstances()).map(([id, item]) => (
                                     <article class="secondary-container">
                                         <div class="row">
                                             <div class="max">
                                                 <h5>{item.name}</h5>
-                                                <div>Version: {item.version} | Playtime: {item.playtime} </div>
+                                                <div>Version: {VersionManager.getVersion(item.version).name} | Playtime: {item.playtime} </div>
                                             </div>
                                         </div>
                                         <nav>
-                                            <button onclick={() => vnode.state.createWindow("/game")}
+                                            <button onclick={() => vnode.state.createGameWindow(id)}
                                                 class="circle transparent">
                                                 <i>play_circle</i>
                                                 <span class="tooltip bottom">Launch</span>
@@ -62,7 +56,7 @@ export const InstancesView = () => {
                                                 <i>stop_circle</i>
                                                 <span class="tooltip bottom">Stop</span>
                                             </button>
-                                            <button onclick={() => vnode.state.createWindow("/game/log")} class="circle transparent">
+                                            <button onclick={() => vnode.state.createLogWindow(id)} class="circle transparent">
                                                 <i>terminal</i>
                                                 <span class="tooltip bottom">View Log</span>
                                             </button>
@@ -81,10 +75,7 @@ export const InstancesView = () => {
                             }
                         </section>
                     </main>
-                    {/* Instances */}
-                    {/* Dialogs */}
-                    <ConfirmDialog id="instance-deletion-dialog" />
-                    {/* Dialogs */}
+                    {/* List */}
                 </>
             )
         },

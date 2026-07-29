@@ -2,21 +2,13 @@ import m from "mithril";
 import { MenuPages } from "../MenuPages";
 import { MenuMisc } from "../MenuMisc";
 import { VersionManager } from "../../libs/VersionManager";
-import { ConfirmDialog, OkayDialog } from "../Dialogs";
 
 export const VersionsView = () => {
     return {
         oninit: (vnode) => {
-            vnode.state.versions = VersionManager.getVersions();
             vnode.state.versionDeletion = (uuid) => {
-                const version = VersionManager.getVersion(uuid);
-                ConfirmDialog().toggle("version-deletion-dialog",
-                    'Delete "' + version.name + '"?',
-                    '"' + version.name + '" will be deleted forever, including files for this version!',
-                    () => {
-                        console.log("Action fired from verison: " + version);
-                    }
-                );
+                // const version = VersionManager.getVersion(uuid);
+                VersionManager.removeVersion(uuid);
             };
         },
         view: (vnode) => {
@@ -35,11 +27,11 @@ export const VersionsView = () => {
                         </nav>
                     </header>
                     {/* Header */}
-                    {/* Versions */}
+                    {/* List */}
                     <main class="compact">
                         <section>
                             {
-                                Object.entries(vnode.state.versions).map(([id, item]) => (
+                                Object.entries(VersionManager.getVersions()).map(([id, item]) => (
                                     <article class="secondary-container">
                                         <div class="row">
                                             <div class="max">
@@ -62,10 +54,7 @@ export const VersionsView = () => {
                             }
                         </section>
                     </main>
-                    {/* Versions */}
-                    {/* Dialogs */}
-                    <ConfirmDialog id="version-deletion-dialog" />
-                    {/* Dialogs */}
+                    {/* List */}
                 </>
             )
         }
