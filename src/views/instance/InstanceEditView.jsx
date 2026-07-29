@@ -1,5 +1,6 @@
 import m from "mithril";
 import { InstanceManager } from "../../libs/InstanceManager";
+import { VersionManager } from "../../libs/VersionManager";
 
 export const InstanceEditView = () => {
     return {
@@ -22,6 +23,7 @@ export const InstanceEditView = () => {
                             <h6 class="max">instance_name / New Instance</h6>
                             <button onclick={() => vnode.state.save()} class="circle transparent">
                                 <i>save</i>
+                                <span class="tooltip bottom">Save</span>
                             </button>
                         </nav>
                     </header>
@@ -51,7 +53,11 @@ export const InstanceEditView = () => {
                                         <div class="field suffix border">
                                             <select value={vnode.state.instanceAssignedVersion}
                                                 onchange={(e) => vnode.state.instanceAssignedVersion = e.target.value}>
-                                                <option value="test">1.8.8_u53_-wasm-gc</option>
+                                                    {
+                                                        Object.entries(VersionManager.getVersions()).map(([id, item]) => (
+                                                            <option value={id}>{item.name}</option>
+                                                        ))
+                                                    }
                                             </select>
                                             <i>arrow_drop_down</i>
                                         </div>
