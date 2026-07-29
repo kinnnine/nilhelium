@@ -27,9 +27,6 @@ export const VersionManager = {
             throw new Error("Incomplete required parameters: uuid (string)");
         };
     },
-    getVersionData(uuid) {
-        // TODO (IndexedDB)
-    },
     addVersion(name, epw_identify, epw_file) {
         if (typeof name != 'undefined' &&
             typeof epw_identify != 'undefined' &&
@@ -56,8 +53,10 @@ export const VersionManager = {
             try {
                 var versions = this.getVersions();
                 if (versions[uuid]) {
+                    FileHelper.removeFile("assets.epw", uuid);
                     delete versions[uuid];
                 };
+                ConfigHelper.saveConfig(this.namespace, versions);
             } catch (err) {
                 throw err;
             };
