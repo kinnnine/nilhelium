@@ -2,6 +2,7 @@ import m from "mithril";
 import { MenuPages } from "../MenuPages";
 import { MenuMisc } from "../MenuMisc";
 import { InstanceManager } from "../../libs/InstanceManager";
+import { ConfirmDialog, OkayDialog } from "../Dialogs";
 
 export const InstancesView = () => {
     return {
@@ -9,6 +10,16 @@ export const InstancesView = () => {
             vnode.state.instances = InstanceManager.getInstances();
             vnode.state.modal_header = "";
             vnode.state.modal_content = "";
+            vnode.state.instanceDeletion = (uuid) => {
+                const instance = InstanceManager.getInstance(uuid);
+                ConfirmDialog().toggle("instance-deletion-dialog",
+                    'Delete "' + instance.name + '"?',
+                    '"' + instance.name + '" will be deleted forever, including settings, servers and worlds for this instance!',
+                    () => {
+                        console.log("Action fired from instance: " + instance);
+                    }
+                );
+            };
             vnode.state.createWindow = (path, width = 854, height = 480) => {
                 window.open(m.route.prefix + path, "_blank", "popup=true,width=" + width + ",height=" + height);
             };
@@ -29,23 +40,6 @@ export const InstancesView = () => {
                         </nav>
                     </header>
                     {/* Header */}
-                    {/* Modals */}
-                    <dialog id="confirm-modal" class="bottom">
-                        <h5>Top</h5>
-                        <div>Some text here</div>
-                        <nav class="right-align">
-                            <button class="border">Cancel</button>
-                            <button>Confirm</button>
-                        </nav>
-                    </dialog>
-                    <dialog id="okay-modal" class="bottom">
-                        <h5></h5>
-                        <div></div>
-                        <nav class="right-align">
-                            <button>Okay</button>
-                        </nav>
-                    </dialog>
-                    {/* Modals */}
                     {/* Instances */}
                     <main class="compact">
                         <section>
@@ -59,7 +53,8 @@ export const InstancesView = () => {
                                             </div>
                                         </div>
                                         <nav>
-                                            <button onclick={() => vnode.state.createWindow("/game")} class="circle transparent">
+                                            <button onclick={() => vnode.state.createWindow("/game")}
+                                                class="circle transparent">
                                                 <i>play_circle</i>
                                                 <span class="tooltip bottom">Launch</span>
                                             </button>
@@ -75,7 +70,8 @@ export const InstancesView = () => {
                                                 <i>edit_square</i>
                                                 <span class="tooltip bottom">Edit</span>
                                             </button>
-                                            <button class="circle transparent">
+                                            <button onclick={() => vnode.state.instanceDeletion(id)}
+                                                class="circle transparent">
                                                 <i>delete</i>
                                                 <span class="tooltip bottom">Delete</span>
                                             </button>
@@ -86,6 +82,9 @@ export const InstancesView = () => {
                         </section>
                     </main>
                     {/* Instances */}
+                    {/* Dialogs */}
+                    <ConfirmDialog id="instance-deletion-dialog" />
+                    {/* Dialogs */}
                 </>
             )
         },

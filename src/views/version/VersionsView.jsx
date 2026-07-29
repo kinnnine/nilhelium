@@ -2,11 +2,22 @@ import m from "mithril";
 import { MenuPages } from "../MenuPages";
 import { MenuMisc } from "../MenuMisc";
 import { VersionManager } from "../../libs/VersionManager";
+import { ConfirmDialog, OkayDialog } from "../Dialogs";
 
 export const VersionsView = () => {
     return {
         oninit: (vnode) => {
             vnode.state.versions = VersionManager.getVersions();
+            vnode.state.versionDeletion = (uuid) => {
+                const version = VersionManager.getVersion(uuid);
+                ConfirmDialog().toggle("version-deletion-dialog",
+                    'Delete "' + version.name + '"?',
+                    '"' + version.name + '" will be deleted forever, including files for this version!',
+                    () => {
+                        console.log("Action fired from verison: " + version);
+                    }
+                );
+            };
         },
         view: (vnode) => {
             return (
@@ -40,7 +51,8 @@ export const VersionsView = () => {
                                                 <i>edit_square</i>
                                                 <span class="tooltip bottom">Edit</span>
                                             </button>
-                                            <button class="circle transparent">
+                                            <button onclick={() => vnode.state.versionDeletion(id)}
+                                                class="circle transparent">
                                                 <i>delete</i>
                                                 <span class="tooltip bottom">Delete</span>
                                             </button>
@@ -51,6 +63,9 @@ export const VersionsView = () => {
                         </section>
                     </main>
                     {/* Versions */}
+                    {/* Dialogs */}
+                    <ConfirmDialog id="version-deletion-dialog" />
+                    {/* Dialogs */}
                 </>
             )
         }
