@@ -14,7 +14,7 @@ export const VersionManager = {
     getVersion(uuid) {
         if (typeof uuid != 'undefined') {
             try {
-                var versions = ConfigHelper.getConfig(this.namespace);
+                var versions = this.getVersions();
                 if (versions[uuid]) {
                     return versions[uuid];
                 } else {
@@ -22,6 +22,24 @@ export const VersionManager = {
                 };
             } catch (err) {
                 throw err;
+            };
+        } else {
+            throw new Error("Incomplete required parameters: uuid (string)");
+        };
+    },
+    async getEPWFile(uuid) {
+        if (typeof uuid != 'undefined') {
+            var version = this.getVersion(uuid);
+            if (version) {
+                return await FileHelper.getFile("assets.epw", uuid)
+                    .then((result) => {
+                        return result;
+                    })
+                    .catch((err) => {
+                        throw new Error("getEPWFile fetch file error", err);
+                    });
+            } else {
+                throw new Error("getEPWFile version not found");
             };
         } else {
             throw new Error("Incomplete required parameters: uuid (string)");
