@@ -15,11 +15,8 @@ export const VersionManager = {
         if (typeof uuid != 'undefined') {
             try {
                 var versions = this.getVersions();
-                if (versions[uuid]) {
+                if (versions[uuid])
                     return versions[uuid];
-                } else {
-                    return null;
-                };
             } catch (err) {
                 throw err;
             };
