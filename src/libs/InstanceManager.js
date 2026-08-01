@@ -15,11 +15,8 @@ export const InstanceManager = {
         if (typeof uuid != 'undefined') {
             try {
                 var instances = ConfigHelper.getConfig(this.namespace);
-                if (instances[uuid]) {
+                if (instances[uuid])
                     return instances[uuid];
-                } else {
-                    return null;
-                };
             } catch (err) {
                 throw err;
             };
@@ -34,8 +31,9 @@ export const InstanceManager = {
                 var instances = this.getInstances();
                 var uuid = crypto.randomUUID();
                 instances[uuid] = {
+                    uuid: uuid,
                     name: name,
-                    version: version,
+                    version_uuid: version,
                     playtime: ""
                 };
                 ConfigHelper.saveConfig(this.namespace, instances);
@@ -61,35 +59,4 @@ export const InstanceManager = {
             throw new Error("Incomplete required parameters: uuid (string)");
         };
     },
-    async registerInstance(uuid) {
-        if (typeof uuid != 'undefined') {
-            var instance = this.getInstance(uuid);
-            if (instance) {
-                var version = VersionManager.getVersion(instance.version);
-                if (version) {
-                    const blob = await VersionManager.getEPWFile(instance.version)
-                        .then((result) => {
-                            return result;
-                        })
-                        .catch((err) => {
-                            return null;
-                        });
-                    if (blob) {
-                        return { instance: instance, version: version, epwFile: blob };
-                    } else {
-                        throw new Error("startInstance getEPWFile failed");
-                    };
-                } else {
-                    throw new Error("startInstance version not found");
-                };
-            } else {
-                throw new Error("startInstance instance not found");
-            };
-        } else {
-            throw new Error("Incomplete required parameters: uuid (string)");
-        };
-    },
-    unregisterInstance(uuid) {
-
-    }
 };

@@ -43,7 +43,7 @@ export const InstancesView = () => {
                                         <div class="row">
                                             <div class="max">
                                                 <h5>{item.name}</h5>
-                                                <div>Version: {VersionManager.getVersion(item.version).name} | Playtime: {item.playtime} </div>
+                                                <div>Version: {VersionManager.getVersion(item.version_uuid).name} | Playtime: {item.playtime} </div>
                                             </div>
                                         </div>
                                         <nav>
