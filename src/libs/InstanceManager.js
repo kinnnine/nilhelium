@@ -1,5 +1,6 @@
 import { ConfigHelper } from "./helpers/ConfigHelper"
 import { STORAGE_NAMESPACE_INSTANCES } from "../constants";
+import { VersionManager } from "./VersionManager";
 
 export const InstanceManager = {
     namespace: STORAGE_NAMESPACE_INSTANCES,
@@ -59,5 +60,36 @@ export const InstanceManager = {
         } else {
             throw new Error("Incomplete required parameters: uuid (string)");
         };
+    },
+    async registerInstance(uuid) {
+        if (typeof uuid != 'undefined') {
+            var instance = this.getInstance(uuid);
+            if (instance) {
+                var version = VersionManager.getVersion(instance.version);
+                if (version) {
+                    const blob = await VersionManager.getEPWFile(instance.version)
+                        .then((result) => {
+                            return result;
+                        })
+                        .catch((err) => {
+                            return null;
+                        });
+                    if (blob) {
+                        return { instance: instance, version: version, epwFile: blob };
+                    } else {
+                        throw new Error("startInstance getEPWFile failed");
+                    };
+                } else {
+                    throw new Error("startInstance version not found");
+                };
+            } else {
+                throw new Error("startInstance instance not found");
+            };
+        } else {
+            throw new Error("Incomplete required parameters: uuid (string)");
+        };
+    },
+    unregisterInstance(uuid) {
+
     }
 };
