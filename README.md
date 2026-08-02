@@ -2,6 +2,8 @@
 
 Multi-instance launcher for Eaglercraft as an installable, fully offline [PWA](https://en.wikipedia.org/wiki/Progressive_web_app).
 
+<image src="docs/showcase.png" width="80%"/>
+
 ## Under heavy development, not ready for use yet
 
 Here is the TO DO list so far...
