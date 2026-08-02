@@ -14,6 +14,7 @@ Here is the TO DO list so far...
 - [ ] Complete version management (add, remove, renaming, editing, settings and so on...)
 - [ ] Account management (Wispcraft integration)
 - [ ] Settings management (global settings, import, export, reset and so on...)
+- [ ] World management for instance (import, export, remove)
 - [x] Able to launch and play the game by instance
 - [ ] Complete PWA functionality
 
